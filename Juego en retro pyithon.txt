@@ -1,0 +1,84 @@
+#naves del juego: Jugador, Alien
+class nave:
+    def __init__(self, x, y, radio, color, vivo):
+        self.x = x
+        self.y = y
+        self.radio = radio
+        self.color = color
+        self.vivo = True
+    
+    def crear(self):
+        if self.vivo:
+            #print("se ejecuta el crear")
+            circulo(self.x, self.y, self.radio, self.color, True)
+    
+    def mover(self, dx, dy):
+        #print("se ejecuta el mover", 11)
+        if self.vivo:
+            self.x += dx
+            self.y += dy
+    
+    def eliminar(self):
+        self.vivo = False
+        #print("se elimina")
+        
+
+
+#Variables
+activo = True
+
+velocidad = 3
+velocidad2 = -3 #necesario xq usar -velocidad reduce los fps.
+
+#incia el juego
+#cargo el jugador
+jugador = nave(100,100,10,7)
+jugador.crear()
+#print(jugador.radio, 11)
+
+#cargo el alien
+alien = nave(20,20,20,9)
+alien.crear()
+
+#Comienza el juego
+while activo:
+    #crea las naves y borra el rastro del movimiento
+    pintar(3)
+    jugador.crear()
+    alien.crear()
+    
+    mover_jugador()
+    movimiento_alien()
+
+    
+    #detecta colision entre jugador y nave. Si chocan, se borra el alien
+    if colision(jugador.x, jugador.y, jugador.radio, alien.x, alien.y, alien.radio):
+        #print("chocaron")
+        alien.eliminar()
+
+
+
+def mover_jugador():
+    #muevo el jugador con las teclas
+    if derecha and jugador.x < 128:
+        jugador.mover(velocidad,0)
+    if izquierda and jugador.x > 0:
+        jugador.mover(velocidad2,0)
+    if arriba and jugador.y > 0:
+        jugador.mover(0,velocidad2)
+    if abajo and jugador.y < 128:
+        jugador.mover(0,velocidad)
+        
+def movimiento_alien():
+        if alien.vivo:
+        alien.mover(velocidad,0)
+        if alien.x > 140:
+            alien.x = 0
+            alien.y = azar(0,128)
+
+def colision(jx,jy,jr,ax,ay,ar):
+    #si devuelve true, entonces están colisionando la nave y el alien
+    numero = pow(jx-ax, 2) + pow(jy-ay, 2)
+    distancia = pow(numero, 0.5)
+    #print(distancia)
+    return distancia <= (jr+ar)
