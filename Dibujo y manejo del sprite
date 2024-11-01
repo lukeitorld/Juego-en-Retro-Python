@@ -1,0 +1,43 @@
+def sprite(x, y,color): 
+    #centro = [x,y]
+    v_a = [x+5,y]
+    v_b = [x+2,y-3]
+    v_c = [x-1,y-3]#unused
+    v_d = [x-3,y-1]#unused
+    v_e = [x-3,y+1]
+    v_f = [x-1, y+3]
+    v_g = [x+2, y+3]
+    #punta
+    linea(v_a[0], v_a[1], v_c[0], v_c[1],color)
+    linea(v_a[0], v_a[1], v_f[0], v_f[1],color)
+    #cuerpo
+    #linea(v_b[0], v_b[1], v_c[0], v_c[1],color)
+    #linea(v_f[0], v_f[1], v_g[0], v_g[1],color)
+    linea(v_f[0], v_f[1], v_c[0], v_c[1],color)
+
+pos_x = 50
+pos_y = 50
+
+sprite(pos_x, pos_y,3)
+
+while True:
+    if derecha:
+        pos_x += 3
+        borrar()
+        pintar(1)
+        sprite(pos_x, pos_y, 3)
+    if izquierda:
+        pos_x -= 3
+        borrar()
+        pintar(1)
+        sprite(pos_x, pos_y, 3)
+    if arriba:
+        pos_y -= 3
+        borrar()
+        pintar(1)
+        sprite(pos_x, pos_y, 3)
+    if abajo:
+        pos_y += 3
+        borrar()
+        pintar(1)
+        sprite(pos_x, pos_y, 3)
