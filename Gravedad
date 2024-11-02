@@ -1,0 +1,21 @@
+gravedad = 0.1
+tiempo = 0
+velocidad_vertical = 0  # Inicializar la velocidad vertical
+
+while True:
+    borrar()
+
+    if espacio:
+        tiempo = 0  # Reiniciar el tiempo al saltar
+        y = 100  # Reiniciar la posición al saltar
+        velocidad_vertical = -5  # Dar una velocidad inicial negativa al saltar
+
+    # Calcular la posición usando la ecuación de movimiento
+    y = 100 + velocidad_vertical * tiempo + 0.5 * gravedad * tiempo * tiempo
+
+    if y < 100:
+        circulo(64, y, 26, 7, True)
+    else:
+        circulo(64, 100, 26, 7, True)
+
+    tiempo += 1  # Incrementar el tiempo en cada cuadro
