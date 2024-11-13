@@ -1,4 +1,3 @@
-#naves del juego: Jugador, Alien
 class nave:
     def __init__(self, x, y, radio, color, vivo=True, espejado=False):
         self.x = x
@@ -32,6 +31,7 @@ class nave:
         self.vivo = False
         #print("se elimina")
 
+'''
 class bala:
     def __init__(self,x,y):
         self.x = x
@@ -40,6 +40,7 @@ class bala:
         self.x += dx
     def crear(self):
         circulo(self.x, self.y,2, 12,True)
+'''
 
 #Variables
 activo = True
@@ -49,16 +50,17 @@ velocidad2 = -3 #necesario xq usar -velocidad reduce los fps.
 
 #incia el juego
 #cargo el jugador
-jugador = nave(10,10,10,7)
+jugador = nave(10,100,6,7)
 jugador.crear()
 #print(jugador.radio, 11)
 
 #cargo el alien
-alien = nave(20,20,20,9,True,True)
+alien = nave(20,20,6,9,True,True)
 alien.crear()
 
-#balas
-bala1
+#cargo la bala
+bala1 = nave(10,10,2,12,False)
+
 
 
 def mover_jugador():
@@ -75,9 +77,18 @@ def mover_jugador():
 def movimiento_alien():
     if alien.vivo:
         alien.mover(velocidad2,0)
+        alien.crear()
     if alien.x < 0:
         alien.x = 140
         alien.y = azar(0,128)
+
+def movimiento_bala():
+    if bala1.vivo:
+        bala1.crear()
+        bala1.mover(velocidad,0)
+    if bala1.x < 0:
+        bala.eliminar()
+        
 
 def colision(jx,jy,jr,ax,ay,ar):
     #si devuelve true, entonces están colisionando la nave y el alien
@@ -91,14 +102,17 @@ while activo:
     #crea las naves y borra el rastro del movimiento
     pintar(3)
     jugador.crear()
-    alien.crear()
+    
     
     mover_jugador()
     movimiento_alien()
+    movimiento_bala()
 
     if espacio:
+        bala1.vivo = True
+        bala1.x = jugador.x + 7
+        bala1.y = jugador.y
         
-        bala1.crear()
 
     #detecta colision entre jugador y nave. Si chocan, se borra el alien
     if colision(jugador.x, jugador.y, jugador.radio, alien.x, alien.y, alien.radio):
