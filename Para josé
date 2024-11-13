@@ -1,0 +1,106 @@
+#naves del juego: Jugador, Alien
+class nave:
+    def __init__(self, x, y, radio, color, vivo=True, espejado=False):
+        self.x = x
+        self.y = y
+        self.radio = radio
+        self.color = color
+        self.vivo = vivo
+        self.espejado = espejado
+    
+    def crear(self):
+        if self.vivo:
+            #print("se ejecuta el crear")
+            #circulo(self.x, self.y, self.radio, self.color, True)
+            #centro = [x,y]
+            v_a = [self.x + 5,self.y]
+            v_c = [self.x-1,self.y-3]
+            v_f = [self.x-1, self.y+3]
+            if self.espejado:
+                v_a = [self.x - 7,self.y]
+            linea(v_a[0], v_a[1], v_c[0], v_c[1],self.color)
+            linea(v_a[0], v_a[1], v_f[0], v_f[1],self.color)
+            linea(v_f[0], v_f[1], v_c[0], v_c[1],self.color)
+    
+    def mover(self, dx, dy):
+        #print("se ejecuta el mover", 11)
+        if self.vivo:
+            self.x += dx
+            self.y += dy
+    
+    def eliminar(self):
+        self.vivo = False
+        #print("se elimina")
+
+class bala:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+    def mover(self,dx):
+        self.x += dx
+    def crear(self):
+        circulo(self.x, self.y,2, 12,True)
+
+#Variables
+activo = True
+
+velocidad = 3
+velocidad2 = -3 #necesario xq usar -velocidad reduce los fps.
+
+#incia el juego
+#cargo el jugador
+jugador = nave(10,10,10,7)
+jugador.crear()
+#print(jugador.radio, 11)
+
+#cargo el alien
+alien = nave(20,20,20,9,True,True)
+alien.crear()
+
+#balas
+bala1
+
+
+def mover_jugador():
+    #muevo el jugador con las teclas
+    if derecha and jugador.x < 122:
+        jugador.mover(velocidad,0)
+    if izquierda and jugador.x > 10:
+        jugador.mover(velocidad2,0)
+    if arriba and jugador.y > 10:
+        jugador.mover(0,velocidad2)
+    if abajo and jugador.y < 118:
+        jugador.mover(0,velocidad)
+        
+def movimiento_alien():
+    if alien.vivo:
+        alien.mover(velocidad2,0)
+    if alien.x < 0:
+        alien.x = 140
+        alien.y = azar(0,128)
+
+def colision(jx,jy,jr,ax,ay,ar):
+    #si devuelve true, entonces están colisionando la nave y el alien
+    numero = pow(jx-ax, 2) + pow(jy-ay, 2)
+    distancia = pow(numero, 0.5)
+    #print(distancia)
+    return distancia <= (jr+ar)
+
+#Comienza el juego
+while activo:
+    #crea las naves y borra el rastro del movimiento
+    pintar(3)
+    jugador.crear()
+    alien.crear()
+    
+    mover_jugador()
+    movimiento_alien()
+
+    if espacio:
+        
+        bala1.crear()
+
+    #detecta colision entre jugador y nave. Si chocan, se borra el alien
+    if colision(jugador.x, jugador.y, jugador.radio, alien.x, alien.y, alien.radio):
+        #print("chocaron")
+        alien.eliminar()
