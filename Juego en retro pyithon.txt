@@ -1,11 +1,11 @@
 #naves del juego: Jugador, Alien
 class nave:
-    def __init__(self, x, y, radio, color, vivo):
+    def __init__(self, x, y, radio, color, vivo=True):
         self.x = x
         self.y = y
         self.radio = radio
         self.color = color
-        self.vivo = True
+        self.vivo = vivo
     
     def crear(self):
         if self.vivo:
