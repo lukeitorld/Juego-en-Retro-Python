@@ -10,7 +10,15 @@ class nave:
     def crear(self):
         if self.vivo:
             #print("se ejecuta el crear")
-            circulo(self.x, self.y, self.radio, self.color, True)
+            #circulo(self.x, self.y, self.radio, self.color, True)
+            #centro = [x,y]
+            v_a = [self.x + 5,self.y]
+            v_c = [self.x-1,self.y-3]
+            v_f = [self.x-1, self.y+3]
+            v_g = [self.x+2, self.y+3]
+            linea(v_a[0], v_a[1], v_c[0], v_c[1],self.color)
+            linea(v_a[0], v_a[1], v_f[0], v_f[1],self.color)
+            linea(v_f[0], v_f[1], v_c[0], v_c[1],self.color)
     
     def mover(self, dx, dy):
         #print("se ejecuta el mover", 11)
