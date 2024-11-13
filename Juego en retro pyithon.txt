@@ -48,6 +48,31 @@ jugador.crear()
 alien = nave(20,20,20,9)
 alien.crear()
 
+def mover_jugador():
+    #muevo el jugador con las teclas
+    if derecha and jugador.x < 128:
+        jugador.mover(velocidad,0)
+    if izquierda and jugador.x > 0:
+        jugador.mover(velocidad2,0)
+    if arriba and jugador.y > 0:
+        jugador.mover(0,velocidad2)
+    if abajo and jugador.y < 128:
+        jugador.mover(0,velocidad)
+        
+def movimiento_alien():
+    if alien.vivo:
+        alien.mover(velocidad,0)
+    if alien.x > 140:
+        alien.x = 0
+        alien.y = azar(0,128)
+
+def colision(jx,jy,jr,ax,ay,ar):
+    #si devuelve true, entonces están colisionando la nave y el alien
+    numero = pow(jx-ax, 2) + pow(jy-ay, 2)
+    distancia = pow(numero, 0.5)
+    #print(distancia)
+    return distancia <= (jr+ar)
+
 #Comienza el juego
 while activo:
     #crea las naves y borra el rastro del movimiento
@@ -66,27 +91,4 @@ while activo:
 
 
 
-def mover_jugador():
-    #muevo el jugador con las teclas
-    if derecha and jugador.x < 128:
-        jugador.mover(velocidad,0)
-    if izquierda and jugador.x > 0:
-        jugador.mover(velocidad2,0)
-    if arriba and jugador.y > 0:
-        jugador.mover(0,velocidad2)
-    if abajo and jugador.y < 128:
-        jugador.mover(0,velocidad)
-        
-def movimiento_alien():
-        if alien.vivo:
-        alien.mover(velocidad,0)
-        if alien.x > 140:
-            alien.x = 0
-            alien.y = azar(0,128)
 
-def colision(jx,jy,jr,ax,ay,ar):
-    #si devuelve true, entonces están colisionando la nave y el alien
-    numero = pow(jx-ax, 2) + pow(jy-ay, 2)
-    distancia = pow(numero, 0.5)
-    #print(distancia)
-    return distancia <= (jr+ar)
