@@ -1,0 +1,33 @@
+class jugador:
+    def __init__(self,x,y,radio,color,vivo=True):
+        self.x = x
+        self.y = y
+        self.radio = radio
+        self.color = color
+        self.vivo = vivo
+    def mover(dx):
+        self.x += dx
+
+
+
+gravedad = 0.1
+tiempo = 0
+velocidad_vertical = 0  # Inicializar la velocidad vertical
+
+while True:
+    borrar()
+
+    if espacio:
+        tiempo = 0  # Reiniciar el tiempo al saltar
+        y = 10  # Reiniciar la posición al saltar
+        velocidad_vertical = -3   # Dar una velocidad inicial negativa al saltar
+
+    # Calcular la posición usando la ecuación de movimiento
+    y = 100 + velocidad_vertical * tiempo + 0.5 * gravedad * tiempo * tiempo
+
+    if y < 100:
+        circulo(4, y, 6, 7, True)
+    else:
+        circulo(4, 100, 6, 7, True)
+
+    tiempo += 1  # Incrementar el tiempo en cada cuadro
